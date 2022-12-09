@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+Resources:
+  Ec2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-46ca739
+      Tags:
+        - Key: Name
+          Value: !Join [ " ", [ Ec2, Inastance, With, Fn, Join ] ] # Using Intrinsic Fxt JOIN
