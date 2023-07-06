@@ -1,0 +1,69 @@
+The Terraform language's main purpose is to declare resources. This represents infrastructure objects
+All the different features are present to accommodate more flaxible and convenient resource definition
+
+Syntax Consists of:
+1) BLOCKS: These are containers for objects like resources
+2) ARGUMENTS: Assign a value to a name
+3) EXPRESSION: Represent a value
+
+Resource Types
+Providers, which are plugins for Terraform that offers a collection of resources types
+Arguments: which are specific to the selected resource type
+Documentation: Which every provider uses to describe its resource types and arguments
+
+Input Variables
+
+Input variables serve as parameters for a Terraform modules. They allow aspects of the module to be customized
+without altering the actual module. This allows modules to be shared between different configurations
+
+optional Arguments for Variable Declaration
+1) Default:
+2) type:
+3) Description:
+4) Validation:
+5) sensitive:
+
+type constraints
+1) string
+2) number
+3) bool
+
+
+Precedence
+
+The order in which variables are loaded
+Environment variables
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars or .auto.ftvars.json
+ANy command-line options like -var and -var-file
+
+Terraform Cloud
+Terraform cloud ia an application that helps teams use Terraform together. It manager Terraform runs
+ in a consistent and reliable environment
+
+ Step to Migrate Local Terraform to Terraform Cloud
+ 1) Have Terraform 0.11.13 version or later
+ 2) have the following:
+ - The location of the VCS repository for the Terraform config
+ - A local working copy of the Terraform config
+ - The existing state data
+ - A Terraform Cloud user account
+ 3) stop Terraform runs
+ 4) Prepare your Terraform Working Directory
+ - if you gave already been doing Terraform runs in this dir you should be good to go
+ - if you had to retrieve a terraform.tfstate file from elsewhere, copy it into the root of the working dir
+ and run terraform init
+ - if you use a remote backend and had to check out a fresh workinh directory from version control, run
+ terraform init
+ 5) Edit backend config with the following:
+ - Use the remote backend
+ - in the organization attribute, specify the name of your Terraform Cloud organization
+ - The hostname attribute is only necessary with Terraform Enterprise instances
+ - in the name attribute within the workspaces block specifiy the name of the New Terraform Cloud workspace
+ to create with your state
+ 6) Run Terraform init to migrate the workspace
+ 7) Configure te Terraform Cloud Workspace
+ 8) Queue a Run in the new Workspace: terraform plan
+
+
