@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: web-pod
+spec:
+  replicas: 3
+  containers:
+  - name: web-pod
+    image: nginx:1.16

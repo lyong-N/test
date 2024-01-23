@@ -1,0 +1,34 @@
+helps connect applications together with other applications or users
+There are three type of Services in kubernetes
+1) NodePort: Range is 30,000 to 32767 range in the node
+2) ClusterIP:
+3) Loadbalancer:
+
+NameSpaces: 
+Three are created by default: default, kube-system, kube-public
+kubectl get pods [only list pods in the default NameSpace]
+kubectl get pods --namespace=kube-system [ list pods in that name system]
+kubectl apply -f name-space-definition.yaml [creates pod in default namespace]
+kubectl apply -f name-space-definition.yaml --namespace=dev [creates pod in dev namespace]
+**** in a yaml file, place the namespace you want to deploy under MATADATA
+
+To set a namespace eg dev use
+kubectl config set-context $(kubectl config current-context) --namespace=dev
+
+kubectl get pods --all-namespaces [gets you all the pods ] or
+kubectl get pods -A
+
+kubectl run redis --image=redis:alpine -l tier=db or 
+kubectl run redis --image=redis:alpine --labels="tier=db"
+
+kubectl expose pod redis --port 6379 --name redis-service [expose a service]
+
+kubectl run <pod name> --image=<image> --namespace=<namespace> [create a pod in a namespace]
+
+QUESTION
+Create a pod called httpd using the image httpd:alpine in the default namespace. Next, 
+create a service of type ClusterIP by the same name (httpd). 
+The target port for the service should be 80.
+
+ANSWER 
+kubectl run httpd --image=httpd:alpine --port=80 --expose=true

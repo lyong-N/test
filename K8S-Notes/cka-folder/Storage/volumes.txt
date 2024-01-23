@@ -1,0 +1,1 @@
+K8s supports verious types of Volumes: EBS, Cinde, Glusterfs, local,  nfs etc 

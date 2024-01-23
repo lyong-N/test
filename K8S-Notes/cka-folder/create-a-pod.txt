@@ -1,0 +1,191 @@
+Notes -Workloads & Scheduling
+https://docs.google.com/document/d/1Uoebi-g-Arua9myZCzK3Kx-rpJsPZ9NK9oyWG8MgdxY/edit?usp=sharing
+
+Notes - Services and Networking
+https://docs.google.com/document/d/1QHNHlvPTJSTIk_sLI-c_qm1n4CbG5RufYJmtw1vycbo/edit?usp=sharing
+
+
+Notes - Security
+https://docs.google.com/document/d/1bfWCFQgJ6IhOZbSaliMRaMDIW8c3DX0KyVz96rRtv4E/edit?usp=sharing
+
+Notes - Storage
+https://docs.google.com/document/d/1BWhLJSJUXRZWpu2YkhXJsY_fF0DN-4OzHDUD51p72eE/edit?usp=sharing
+
+
+1 create a pod from Nginx Image
+Syntax: kubectl run [Name of Pod] --image=[image=Name]
+Command: kubectl run nginx --image=nginx
+
+2 Create a Pod and Expose a Port
+kubectl run nginx --image=nginx --port=80
+
+3 Output the Manifest File
+
+kubectl run nginx45 --image=nginx --port=80 --dry-run=client -o yaml
+or 
+kubectl run nginx45 --image=nginx --port=80 --dry-run=client -o yaml > ly.yaml
+run kubectl apply -f ly.yaml to create the pod
+
+Commands:
+kubectl delete pod --all [Will delete all pods]
+kubectl run nginx --image=nginx --port=8080 [if no Manifest file]
+kubectl apply -f [Manifest file name] :To create pods
+
+Generating Pod Manifests via CLI
+1. Create a Pod from Nginx Image
+
+Syntax:  kubectl run [NAME-OF-POD] --image=[IMAGE=NAME]
+
+Command:
+
+kubectl run nginx --image=nginx
+
+
+
+2. Create a Pod and Expose a Port
+
+kubectl run nginx-port --image=nginx --port=80
+
+
+
+3. Output the Manifest File
+
+kubectl run nginx --image=nginx --port=80 --dry-run=client -o yaml
+
+*** To scale a deployment
+1) kubectl scale deployment/ly-deployment --replicas=9
+2) kubectl edit deployment ly-deployment [this gives a yaml file it automatically apply]
+
+***Rolling update: [Ways]
+1) kubectl set image deployment.v1.apps/rolling-deployment nginx=nginx:1.16.1
+2) kubectl edit deployment rolling-deployment
+3) kubectl rollout undo deployment/Rolling-deployment [Revert to last version]
+
+******We always need a service to direct user trafic in kubernetes*****
+
+*****HELM AND HELM CHARTS*****
+https://helm.sh/docs/intro/quickstart/
+
+helm repo add bitnami https://charts.bitnami.com/bitnami [install this one]
+helm repo update
+helm search repo bitnami
+
+4. Delete PODS
+
+kubectl delete pod nginx
+
+kubectl delete pod --all
+
+
+**Labels** are key/value pair Same are tags.
+**selectors** helps to search resources based on labels 
+
+Command to list pods with a particular selector
+*** kubectl get pods -l env=prod
+*** kubectl get pods -l env=dev
+
+Create 3 pods 
+kubectl run pod-1 --image=nginx
+kubectl run pod-2 --image=nginx
+kubectl run pod-3 --image=nginx
+kubectl get pods --show-labels 
+
+*** Add labels to pods 
+kubectl label pod pod-1 env=dev etc 
+
+kubectl get pods -l env=dev [calls the dev pod]
+kubectl get pods -l env!=dev [calls all the pods except dev]
+
+**
+kubectl run nginx09 --image=nginx --dry-run=client -o yaml > label-pod.yaml
+
+
+*** REPLICASETS**** A replicaSet purpose is to maintain a stable set of replica Pods running 
+at any given time. ******
+eg if you state 
+Desired State = 3
+Image         = nginx
+
+ReplicaSet will make sure you have three pods running with nginx
+
+Desired State -- The state of the pods which is Desired
+Current State -- The actual state of pods which are running
+
+kubectl get replicaSet or kubectl get rs
+
+***DEPLOYMENTS***
+Deployments provides replication functionality with the help of ReplicaSet, along with various
+additional capability like rolling out of changes, rollbacking changes if required.
+it sits on ReplicaSet
+
+check deployments versions 
+
+kubectl rollout history deployment.v1.apps/ly-deployment
+*** to see a particular version
+kubectl rollout history deployment.v1.apps/ly-deployment --revision 1
+
+ROLLBACK CHANGES to previous version
+command:
+kubectl rollout undo deployment.v1.apps/ly-deployment --to-revision=1
+
+***CREATING DEPLOYMENTS from CLI******
+
+kubectl create deployment my-dep --image=nginx --> new deployment
+kubectl create deployment my-dep --image=nginx --replicas=3 --> dep with 3 replicas
+
+kubectl create deployment my-dep --image=nginx --replicas=3 --dry-run=client -o yaml > dep-cli.yaml
+
+
+****4 Important points about Deployments*****
+
+1 Know how to set a new image to deployment as part of a rolling update
+2 Know the Importance of --record instruction
+3 know how to rollback a deployment
+4 able to scale a deployment
+
+
+**** Important Commands to Remember*****
+
+kubectl set image deployment nginx-deployment nginx=nginx:1.91 --record [Set Image]
+kubectl scale deployment nginx-deployment --replicas 10 [Scale deployment]
+kubectl rollout undo deployment nginx-deployment  [Rollout Undo]
+
+***** kubectl get pods -o wide [ shows nodes in which pods are launched]
+
+**** DaemonSet****
+A DaemonSet ensures that all Nodes run a copy of a POD. As Nodes are added to the cluster,
+pods are added to them by the daemonSet
+
+*** NODESELECTOR******
+nodeSelector allows us to add a constraint about running a pod in a specific worker nodes
+eg AppA requires faster disk in order to be able to run effectively
+Run AppA in a node which has SSD
+
+steps:
+1 add label to node
+2 Create a nodeSelector configuration to run pods only on nodes which has label of disk=ssd
+
+To label an exixting node:
+kubectl label node worker-noodes-yusfj disk=ssd
+
+*** NODE AFFINITY*****
+is a set of rules used by the schedular to determine where a pod is added
+
+*** Taints and Tolerations***
+there are three taint effects
+1) NoSchedule
+2) PreferNoSchedule
+3) NoExecute 
+kubectl taint nodes node-name key=value:taint-effct[1,2,3 above]
+command to taint a node
+kubectl taint nodes <node-name> key=value:NoSchedule
+kubectl taint nodes <node-name> key=value:NoSchedule- [to remove a taint see hyphen at the end]
+once a taint is in place, any pod schedule to the node will be blocked 
+
+***to unblock a taint, you need an Toleration***
+
+taints are placed on nodes and tolerations are placed on nodes
+
+******Node Labels*********:
+kubectl label nodes <node-name> <label-kay>=<label-value>
+kubectl label nodes node-1 size=Large

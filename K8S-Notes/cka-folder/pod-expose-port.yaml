@@ -1,0 +1,10 @@
+apiVersion: v1 
+kind: Pod 
+metadata:
+  name: nginx-pod 
+spec: 
+  containers:
+    - name: democonatainer
+      image: nginx
+      ports: # should be added if the question request to expose a port
+        - containerPort: 8080 

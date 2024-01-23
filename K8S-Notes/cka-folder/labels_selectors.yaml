@@ -1,0 +1,16 @@
+# selectors help you filter items based on the  labels
+# examples od lebels: app: App1, function: Front-end, function: Auth, Function: Image-proc etc
+# Labels is under the metadata section with a key pair
+# to get the lebel use kubectl get pods --selector app=App1
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: App1
+    function: Front-end
+  name: nginx09
+spec:
+  containers:
+  - image: nginx
+    name: nginx09

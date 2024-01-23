@@ -1,0 +1,14 @@
+# Labels falls under METADATA SECTION with Key: Value pair 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx09
+    env: dev
+  name: nginx09
+spec:
+  containers:
+  - image: nginx
+    name: nginx09
+  

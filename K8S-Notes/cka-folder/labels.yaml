@@ -1,0 +1,15 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: simple-webapp
+  lables: 
+    app: App1
+    function: Front-end
+  
+spec: 
+  containers:
+    - name: simple-webapp
+      image: simple-webapp
+      ports:
+        - containerPort: 80808
+

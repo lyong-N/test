@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Pod
+metadata:
+  name: service-pod
+spec:
+  containers: 
+  - name: service-pod
+    image: nginx
+  nodeSelector:
+    disk: ssd
+
+ 

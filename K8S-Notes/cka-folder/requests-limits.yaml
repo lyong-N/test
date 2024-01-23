@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ly-demo-pod
+spec:
+  containers: 
+  - name: ly-demo
+    image: nginx
+    resources:
+      requests: 
+        memory: "64Mi"
+        cpu: "0.5"
+      limits:
+        memory: "12800Mi"
+        cpu: "1"
+ 

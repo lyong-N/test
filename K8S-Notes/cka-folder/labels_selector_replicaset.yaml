@@ -1,0 +1,33 @@
+# The labels defined under the template section are the labels configured on the pods.
+# The labels you see at the top are the labels of the replica set itself.
+#We are not really concerned about the labels of the replica set for now because we are 
+# trying to get the replica set to discover the pod. The labels on the replica set will be 
+# used if you were to configure some other object to discover the replica set. In order to 
+# connect the replica set to the pod, we configure the selector field under the replica set 
+# specification to match the labels defined on the pod. A single label will do if it matches 
+# correctly. However, if you feel there could be other pods with the same label but with a 
+# different function, then you could specify both the labels to ensure that the right parts 
+# are discovered by the replica set.
+
+
+apiVersion: apps/v1
+kind: ReplicaSet 
+metadata:
+  name: simple-webapp
+  #lables:
+    #app: App1
+    #function: Front-end
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: App1
+  template:
+    metadata:
+      labels:
+        app: App1
+        function: Front-end
+    spec:
+      containers:
+      - name: simple-webapp
+        image: simple-webapp

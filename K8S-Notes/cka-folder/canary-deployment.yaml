@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: canary-test
+      environment: canary
+  template:
+    metadata:
+      labels:
+        app: canary-test
+        environment: canary
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.17.3:canary
+        ports:
+        - containerPort: 80

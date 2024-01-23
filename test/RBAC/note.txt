@@ -1,0 +1,9 @@
+When we talk about RBAC in K8s, there are two types:
+1) Role which are limited to a particular namespace 
+2) ClusterRole which are for the entire ClusterRole
+
+*** ClusterRole don't have namespace 
+-------***********-------
+Once you create a role you need to bind it by creating a RoleBinding for ROLES and ClusterRoleBinding for ClusterRole
+
+*** Users are listed in the RoleBinding or ClusterRoleBinding  under subjects
