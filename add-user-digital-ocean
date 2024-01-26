@@ -1,0 +1,9 @@
+log as root
+adduser <username>
+usermod -aG sudo <username>
+firewalls
+ufw app list
+ufw allow OpenSSH
+ufw enable
+ufw status
+sudo ufw allow proto tcp from any to any port 80,443 (add ports as required)
