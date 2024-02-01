@@ -1,0 +1,14 @@
+installing Splunk on Ubuntu 22.04
+Create account with Splunk
+With Free Splunk select Splunk Enterprise
+download the .tgz file on your computer
+Run this commend to copy it to your linux server
+ scp splunk-9.2.0-1fff88043d5f-Linux-x86_64.tgz root@pub ip of server:/opt
+ cd /opt 
+ tar -xvzf splunk-9.2.0-1fff88043d5f-Linux-x86_64.tgz
+ cd to splunk
+ cd bin 
+ sudo ./splunk start --accept-license 
+ give username and password
+ on your browser 
+ http://pub ip of server:8000
