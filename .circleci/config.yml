@@ -22,9 +22,9 @@ jobs:
       #     command: aws sts get-caller-identity
 
       # List S3 buckets as a test
-      - run:
-          name: List S3 Buckets
-          command: aws s3 ls
+      # - run:
+      #     name: List S3 Buckets
+      #     command: aws s3 ls
 
 workflows:
   OIDC-with-AWS:
