@@ -15,8 +15,7 @@ jobs:
           session-duration: "1800"
       - run:
           name: List S3 buckets
-          command: |
-            aws s3 ls
+          command: aws s3 ls
 
 workflows:
   OIDC-with-AWS:
