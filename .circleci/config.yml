@@ -14,8 +14,9 @@ jobs:
           role-session-name: "example-session"
           session-duration: "1800"
       - run:
-          name: List S3 buckets
-          command: aws s3 ls
+          name: Log-into-AWS-ECR
+          command: |
+            aws ecr get-login-password --profile "OIDC-PROFILE"
 
 workflows:
   OIDC-with-AWS:
