@@ -21,10 +21,10 @@ jobs:
           name: Verify AWS CLI Configuration
           command: aws sts get-caller-identity
 
-      # List S3 buckets as a test
-      - run:
-          name: List S3 Buckets
-          command: aws s3 ls
+      # # List S3 buckets as a test
+      # - run:
+      #     name: List S3 Buckets
+      #     command: aws s3 ls
 
 workflows:
   OIDC-with-AWS:
