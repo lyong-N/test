@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Log-into-AWS-ECR
           command: |
-            aws ecr get-login-password --profile "OIDC-PROFILE"
+            aws ecr get-login-password
 
 workflows:
   OIDC-with-AWS:
