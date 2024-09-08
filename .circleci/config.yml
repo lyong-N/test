@@ -6,7 +6,7 @@ orbs:
 jobs:
   aws-example:
     docker:
-      - image: cimg/aws:2023.06
+      - image: circleci/python:3.8
     steps:
       - checkout
       - aws-cli/setup:
