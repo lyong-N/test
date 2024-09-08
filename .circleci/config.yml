@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@5.1.0
+  aws-cli: circleci/aws-cli@3.1.5
 
 jobs:
   aws-example:
@@ -9,15 +9,14 @@ jobs:
       - image: cimg/aws:2023.06
     steps:
       - checkout
-      # run the aws-cli/setup command from the orb
       - aws-cli/setup:
-          role-arn: ${AWS_ROLE_ARN}
-          role-session-name: "example-session"
+          role_arn: ${AWS_ROLE_ARN}
+          role_session_name: "example-session"
           session-duration: "1800"
       - run:
-        name: List S3 buckets
-        command: |
-          aws s3 ls
+          name: List S3 buckets
+          command: |
+            aws s3 ls
 
 workflows:
   OIDC-with-AWS:
