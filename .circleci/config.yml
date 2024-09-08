@@ -16,15 +16,15 @@ jobs:
           role-session-name: "example-session"
           session-duration: "1800"
 
-      # Verify that the AWS CLI is correctly configured and list S3 buckets
-      - run:
-          name: Verify AWS CLI Configuration
-          command: aws sts get-caller-identity
-
-      # # List S3 buckets as a test
+      # # Verify that the AWS CLI is correctly configured and list S3 buckets
       # - run:
-      #     name: List S3 Buckets
-      #     command: aws s3 ls
+      #     name: Verify AWS CLI Configuration
+      #     command: aws sts get-caller-identity
+
+      # List S3 buckets as a test
+      - run:
+          name: List S3 Buckets
+          command: aws s3 ls
 
 workflows:
   OIDC-with-AWS:
