@@ -13,10 +13,7 @@ jobs:
           role-arn: ${AWS_ROLE_ARN}
           role-session-name: "example-session"
           session-duration: "1800"
-      - run:
-          name: Log-into-AWS-ECR
-          command: |
-            aws ecr get-login-password
+      - aws sts get-caller-identity
 
 workflows:
   OIDC-with-AWS:
